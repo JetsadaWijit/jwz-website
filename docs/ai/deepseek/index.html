@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>deepseek.js - DeepSeek API Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">deepseek.js - DeepSeek API Documentation</h1>
+
+        <section>
+            <h2>Code</h2>
+            <pre class="code-block"><code>/**
+ * @fileoverview Library for interacting with the DeepSeek API.
+ * Provides askAi, getCompletion, and getTokenUsage functions.
+ */
+
+const https = require('https');
+
+/**
+ * Sends a chat completion request to the DeepSeek API.
+ * 
+ * @param {string} model - The model name (e.g., 'deepseek-chat').
+ * @param {string} token - DeepSeek API key.
+ * @param {string} systemPrompt - System message for context.
+ * @param {string} message - User message.
+ * @returns {Promise&lt;Object&gt;} Resolves with the full JSON response.
+ */
+async function askAi(model, token, systemPrompt, message) {
+    const data = JSON.stringify({
+        model: model,
+        messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: message }
+        ]
+    });
+
+    const options = {
+        hostname: 'api.deepseek.com',
+        path: '/v1/chat/completions',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+
+    return new Promise((resolve, reject) => {
+        const req = https.request(options, (res) => {
+            let body = '';
+            res.on('data', (chunk) => { body += chunk; });
+            res.on('end', () => {
+                try {
+                    resolve(JSON.parse(body));
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        });
+
+        req.on('error', (err) => {
+            reject(err);
+        });
+
+        req.write(data);
+        req.end();
+    });
+}
+
+/**
+ * Extracts the AI completion message from the API response.
+ * 
+ * @param {Object} json - The full JSON response from DeepSeek.
+ * @returns {string} The completion text or empty string if not found.
+ */
+function getCompletion(json) {
+    if (json && json.choices && json.choices[0] && json.choices[0].message) {
+        return String(json.choices[0].message.content || '');
+    }
+    return '';
+}
+
+/**
+ * Extracts the total token usage from the API response.
+ * 
+ * @param {Object} json - The full JSON response from DeepSeek.
+ * @returns {number} Total tokens used, or 0 if not found.
+ */
+function getTokenUsage(json) {
+    if (json && json.usage && typeof json.usage.total_tokens === 'number') {
+        return json.usage.total_tokens;
+    }
+    return 0;
+}
+
+module.exports = { askAi, getCompletion, getTokenUsage };</code></pre>
+        </section>
+
+        <section>
+            <h2>Usage</h2>
+            <pre class="code-block"><code>/*
+    @param model = String (e.g., 'deepseek-chat')
+    @param token = String (your DeepSeek API key)
+    @param systemPrompt = String (system-level prompt, e.g., 'You are an assistant.')
+    @param message = String (user's prompt)
+*/
+const { askAi, getCompletion, getTokenUsage } = require('./deepseek');
+
+const model = 'deepseek-chat';
+const token = 'your-deepseek-api-key';
+const systemPrompt = 'You are an assistant.';
+const message = 'What is the capital of France?';
+
+async function main() {
+    const res = await askAi(model, token, systemPrompt, message);
+    console.log('Completion:', getCompletion(res));
+    console.log('Token Usage:', getTokenUsage(res));
+}
+
+main();</code></pre>
+        </section>
+
+        <section>
+            <h2>Explanation</h2>
+            <p>
+                The <code>deepseek.js</code> library provides simple utilities to interact with the DeepSeek API for chat completions.
+                <br><br>
+                <strong>Functions:</strong>
+            </p>
+            <ul>
+                <li>
+                    <strong><code>askAi(model, token, systemPrompt, message)</code>:</strong>
+                    <ul>
+                        <li>Sends a chat request to DeepSeek API with your parameters.</li>
+                        <li>Returns the full JSON response (as a Promise).</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong><code>getCompletion(json)</code>:</strong>
+                    <ul>
+                        <li>Extracts the AI's response text from the API result.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong><code>getTokenUsage(json)</code>:</strong>
+                    <ul>
+                        <li>Extracts the total number of tokens used (prompt + completion).</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                <strong>Parameters:</strong>
+            </p>
+            <ul>
+                <li><code>model</code>: Name of the DeepSeek model (e.g., 'deepseek-chat').</li>
+                <li><code>token</code>: Your DeepSeek API key.</li>
+                <li><code>systemPrompt</code>: Instruction or context for the assistant.</li>
+                <li><code>message</code>: The user's message.</li>
+            </ul>
+            <p>
+                <strong>Output:</strong><br>
+                The <code>askAi</code> function returns a JSON object which can be parsed with <code>getCompletion</code> and <code>getTokenUsage</code>.
+            </p>
+        </section>
+    </div>
+</body>
+</html>
