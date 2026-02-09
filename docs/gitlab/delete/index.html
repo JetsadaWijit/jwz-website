@@ -32,7 +32,7 @@ const { readPropertiesFile, replacePlaceholders } = require('../essential');
  * @param {string} groupId - The ID of the GitLab group.
  * @param {string[]} repoIds - An array of repository IDs to delete.
  * @param {string} token - The GitLab access token for authentication.
- * @returns {Promise&lt;Object&gt;} - An array of objects containing the deletion status of each repository.
+ * @returns {Promise&lt;object[]&gt;} - An array of objects containing the deletion status of each repository.
  */
 async function deleteGroupRepos(groupId, repoIds, token) {
     return deleteRepos(repoIds, token, { group_id: groupId });
@@ -43,7 +43,7 @@ async function deleteGroupRepos(groupId, repoIds, token) {
  *
  * @param {string[]} repoIds - An array of repository IDs to delete.
  * @param {string} token - The GitLab access token for authentication.
- * @returns {Promise&lt;Object&gt;} - An array of objects containing the deletion status of each repository.
+ * @returns {Promise&lt;object[]&gt;} - An array of objects containing the deletion status of each repository.
  */
 async function deletePersonalRepos(repoIds, token) {
     return deleteRepos(repoIds, token);
@@ -55,7 +55,7 @@ async function deletePersonalRepos(repoIds, token) {
  * @param {string[]} repoIds - An array of repository IDs to delete.
  * @param {string} token - The GitLab access token for authentication.
  * @param {object} replacements - Placeholder replacements for API URLs.
- * @returns {Promise&lt;Object&gt;} - An array of objects containing the deletion status of each repository.
+ * @returns {Promise&lt;object[]&gt;} - An array of objects containing the deletion status of each repository.
  */
 async function deleteRepos(repoIds, token, replacements = {}) {
     const filePath = path.join(__dirname, 'properties', 'api.properties');
@@ -69,8 +69,6 @@ async function deleteRepos(repoIds, token, replacements = {}) {
         const deleteRequests = repoIds.map(async (repoId) => {
             const updatedReplacements = { ...replacements, project_id: repoId };
             const url = replacePlaceholders(config.repospecificurl, updatedReplacements);
-
-            console.log(`Deleting repo ${repoId} at URL: ${url}`);
 
             try {
                 const response = await axios.delete(url, {
@@ -91,12 +89,6 @@ async function deleteRepos(repoIds, token, replacements = {}) {
         });
 
         const results = await Promise.all(deleteRequests);
-
-        const failed = results.filter((result) => result.status === 'failed');
-        if (failed.length > 0) {
-            console.warn('Some repositories failed to delete:', JSON.stringify(failed, null, 2));
-        }
-
         return results;
     } catch (error) {
         console.error('Error deleting GitLab repos:', error);
@@ -114,7 +106,7 @@ module.exports = { deleteGroupRepos, deletePersonalRepos };</code></pre>
     @param repoIds = Array
     @param token = String
 */
-const { deleteGroupRepos, deletePersonalRepos } = require('jwz/gitlab'); // Adjust to the appropriate module
+const { deleteGroupRepos, deletePersonalRepos } = require('jwz/gitlab');
 
 const groupId = 'your-group-id';  // Replace with your GitLab group ID
 const repoIds = ['repo-id1', 'repo-id2'];  // List of repository IDs to delete

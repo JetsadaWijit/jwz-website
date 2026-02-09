@@ -24,10 +24,7 @@
             <h2>Code</h2>
             <pre class="code-block"><code>const axios = require('axios');
 const path = require('path');
-const {
-    readPropertiesFile,
-    replacePlaceholders
-} = require('../essential');
+const { readPropertiesFile, replacePlaceholders } = require('../essential');
 
 const filePath = path.join(__dirname, 'properties', 'api.properties');
 const config = readPropertiesFile(filePath);
@@ -39,10 +36,10 @@ if (!config.repocollaboratorurl) {
 /**
  * Invite collaborators to group repositories.
  * @param {string} groupId - The ID of the group.
- * @param {Array<string>} repoIds - Array of repository IDs.
- * @param {Array<Array<string>>} collaborators - Array of collaborator IDs per repository.
+ * @param {Array&lt;string&gt;} repoIds - Array of repository IDs.
+ * @param {Array&lt;Array&lt;string&gt;&gt;} collaborators - Array of collaborator IDs per repository.
  * @param {string} token - Authentication token.
- * @returns {Promise<Array>} - Results of invitations.
+ * @returns {Promise&lt;Array&gt;} - Results of invitations.
  */
 async function inviteToGroupRepos(groupId, repoIds, collaborators, token) {
     if (!groupId || !repoIds.length || !collaborators.length || !token) {
@@ -53,10 +50,10 @@ async function inviteToGroupRepos(groupId, repoIds, collaborators, token) {
 
 /**
  * Invite collaborators to personal repositories.
- * @param {Array<string>} repoIds - Array of repository IDs.
- * @param {Array<Array<string>>} collaborators - Array of collaborator IDs per repository.
+ * @param {Array&lt;string&gt;} repoIds - Array of repository IDs.
+ * @param {Array&lt;Array&lt;string&gt;&gt;} collaborators - Array of collaborator IDs per repository.
  * @param {string} token - Authentication token.
- * @returns {Promise<Array>} - Results of invitations.
+ * @returns {Promise&lt;Array&gt;} - Results of invitations.
  */
 async function inviteToPersonalRepos(repoIds, collaborators, token) {
     if (!repoIds.length || !collaborators.length || !token) {
@@ -68,10 +65,10 @@ async function inviteToPersonalRepos(repoIds, collaborators, token) {
 /**
  * Helper function to invite collaborators to repositories.
  * @param {string|null} groupId - The ID of the group (null for personal repositories).
- * @param {Array<string>} repoIds - Array of repository IDs.
- * @param {Array<Array<string>>} collaborators - Array of collaborator IDs per repository.
+ * @param {Array&lt;string&gt;} repoIds - Array of repository IDs.
+ * @param {Array&lt;Array&lt;string&gt;&gt;} collaborators - Array of collaborator IDs per repository.
  * @param {string} token - Authentication token.
- * @returns {Promise<Array>} - Results of invitations.
+ * @returns {Promise&lt;Array&gt;} - Results of invitations.
  */
 async function inviteCollaborators(groupId, repoIds, collaborators, token) {
     if (repoIds.length !== collaborators.length) {
@@ -93,7 +90,7 @@ async function inviteCollaborators(groupId, repoIds, collaborators, token) {
                 }, {
                     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
                 });
-            
+
                 return { collaborator: collaboratorId, success: true, response: response.data };
             } catch (error) {
                 return { 
@@ -120,7 +117,7 @@ module.exports = { inviteToGroupRepos, inviteToPersonalRepos };</code></pre>
     @param token = String (authentication token)
 */
 
-const { inviteToGroupRepos, inviteToPersonalRepos } = require('jwz/gitlab'); // Adjust the import path as needed
+const { inviteToGroupRepos, inviteToPersonalRepos } = require('jwz/gitlab');
 
 const groupId = 'your-group-id'; // Replace with your GitLab group ID
 const repoIds = ['repo-id-1', 'repo-id-2']; // List of repository IDs

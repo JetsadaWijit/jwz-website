@@ -26,7 +26,18 @@
 const path = require('path');
 const { readPropertiesFile, replacePlaceholders } = require('../essential');
 
-async function getReleaseVersion(org, repo, version) {
+/**
+ * Fetches a specific release version from a repository.
+ *
+ * @param {string} org - The organization or user that owns the repository.
+ * @param {string} repo - The name of the repository.
+ * @param {string} version - The release tag to fetch.
+ * @param {string} token - The GitHub personal access token for authentication.
+ * @returns {Promise&lt;{ success: boolean, releaseName?: string, releaseTag?: string, releaseURL?: string, message?: string }&gt;} 
+ * An object indicating success or failure, with release details if found.
+ * * @throws {Error} If the release URL is missing in the configuration.
+ */
+async function getReleaseVersion(org, repo, version, token) {
     const filePath = path.join(__dirname, 'properties', 'api.properties');
     const config = readPropertiesFile(filePath);
 
@@ -37,17 +48,33 @@ async function getReleaseVersion(org, repo, version) {
     const replacements = { organization: org, repository: repo };
 
     try {
-        const response = await axios.get(replacePlaceholders(config.reporeleaseurl, replacements));
+        const response = await axios.get(replacePlaceholders(config.reporeleaseurl, replacements), {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/vnd.github.v3+json'
+            }
+        });
         const release = response.data.find(r => r.tag_name === version);
 
         if (release) {
-            return { success: true, releaseName: release.name, releaseTag: release.tag_name, releaseURL: release.html_url };
+            return {
+                success: true,
+                releaseName: release.name,
+                releaseTag: release.tag_name,
+                releaseURL: release.html_url
+            };
         } else {
-            return { success: false, message: `Release ${version} not found.` };
+            return {
+                success: false,
+                message: `Release ${version} not found.`
+            };
         }
     } catch (error) {
         console.error('Error fetching GitHub release:', error.message);
-        return { success: false, message: error.message };
+        return {
+            success: false,
+            message: error.message
+        };
     }
 }
 
@@ -59,6 +86,7 @@ module.exports = getReleaseVersion;</code></pre>
             <pre class="code-block"><code>/*
     @param org = String
     @param repo = String
+    @param version = String
     @param token = String
 */
 const { getReleaseVersion } = require('jwz/github');
@@ -66,8 +94,9 @@ const { getReleaseVersion } = require('jwz/github');
 const org = 'your-org-name';
 const repo = 'your-repo-name';
 const version = 'v1.0.0';
+const token = 'your-github-token';
 
-const res = await getReleaseVersion(org, repo, version);
+const res = await getReleaseVersion(org, repo, version, token);
 console.log(res);</code></pre>
         </section>
 
@@ -82,12 +111,14 @@ console.log(res);</code></pre>
                         <li><code>org</code>: The name of the GitHub organization or user that owns the repository.</li>
                         <li><code>repo</code>: The name of the repository from which the release details are fetched.</li>
                         <li><code>version</code>: The tag name of the release to retrieve (e.g., <code>'v1.0.0'</code>).</li>
+                        <li><code>token</code>: A GitHub Personal Access Token (PAT) required for authentication and accessing private repositories.</li>
                     </ul>
                 </li>
                 <li><strong>Logic:</strong>
                     <ul>
                         <li>Reads the API endpoint URL from a properties file.</li>
                         <li>Replaces placeholders in the URL with the organization and repository names.</li>
+                        <li>Sets the <code>Authorization</code> header with the provided token.</li>
                         <li>Fetches the list of releases from the GitHub API.</li>
                         <li>Finds and returns the release matching the specified version.</li>
                     </ul>

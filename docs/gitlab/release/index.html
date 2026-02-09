@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getReleaseVersion - GitLab Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">getReleaseVersion - GitLab Documentation</h1>
+
+        <section>
+            <h2>Code</h2>
+            <pre class="code-block"><code>const axios = require('axios');
+const path = require('path');
+const { readPropertiesFile, replacePlaceholders } = require('../essential');
+
+/**
+ * Fetches a release version from GitLab.
+ * @param {string} groupId - The ID of the group (unused but kept for signature).
+ * @param {string} projectId - The ID of the project.
+ * @param {string} version - The tag name of the release.
+ * @param {string} token - The GitLab access token.
+ * @returns {Promise&lt;Object&gt;}
+ */
+async function getReleaseVersion(groupId, projectId, version, token) {
+    const filePath = path.join(__dirname, 'properties', 'api.properties');
+    const config = readPropertiesFile(filePath);
+
+    if (!config.reporeleaseurl) {
+        throw new Error("Release URL is missing in the configuration.");
+    }
+
+    const replacements = { group_id: groupId, project_id: projectId };
+
+    try {
+        const url = replacePlaceholders(config.reporeleaseurl, replacements);
+        const response = await axios.get(url, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        const release = response.data.find(r => r.tag_name === version);
+
+        if (release) {
+            return {
+                success: true,
+                releaseName: release.name,
+                releaseTag: release.tag_name,
+                releaseURL: release._links.self,
+            };
+        } else {
+            return { success: false, message: `Release ${version} not found.` };
+        }
+    } catch (error) {
+        console.error('Error fetching GitLab release:', error.message);
+        return { success: false, message: error.message };
+    }
+}
+
+module.exports = getReleaseVersion;</code></pre>
+        </section>
+
+        <section>
+            <h2>Usage</h2>
+            <pre class="code-block"><code>/*
+    @param groupId = String
+    @param projectId = String
+    @param version = String
+    @param token = String
+*/
+const getReleaseVersion = require('jwz/gitlab');
+
+const groupId = 'your-group-id'; // Can be null if using project ID directly
+const projectId = 'your-project-id';
+const version = 'v1.0.0';
+const token = 'your-token';
+
+const res = await getReleaseVersion(groupId, projectId, version, token);
+console.log(res);</code></pre>
+        </section>
+
+        <section>
+            <h2>Explanation</h2>
+            <p>
+                The <code>getReleaseVersion</code> function retrieves specific release details from a GitLab repository.
+            </p>
+            <ul>
+                <li><strong>Parameters:</strong>
+                    <ul>
+                        <li><code>groupId</code>: The ID of the GitLab group (kept for consistency, though primarily the project ID is used).</li>
+                        <li><code>projectId</code>: The specific repository/project ID.</li>
+                        <li><code>version</code>: The tag name of the release (e.g., <code>'v1.0.0'</code>).</li>
+                        <li><code>token</code>: A GitLab personal access token.</li>
+                    </ul>
+                </li>
+                <li><strong>Logic:</strong>
+                    <ul>
+                        <li>Reads the release URL from <code>api.properties</code>.</li>
+                        <li>Authenticates using the provided token in the header.</li>
+                        <li>Fetches all releases for the project and filters by the requested tag name.</li>
+                    </ul>
+                </li>
+                <li><strong>Output:</strong>
+                    <ul>
+                        <li>Returns an object with success status and release details (name, tag, URL) if found, or an error message if not.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

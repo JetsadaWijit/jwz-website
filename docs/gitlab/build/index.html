@@ -22,7 +22,7 @@
 
         <section>
             <h2>Code</h2>
-            <pre class="code-block"><pre><code class="language-javascript">const axios = require('axios');
+            <pre class="code-block"><code>const axios = require('axios');
 const path = require('path');
 const { readPropertiesFile, replacePlaceholders } = require('../essential');
 
@@ -56,11 +56,12 @@ async function buildRepos(group_id, repos, vis, token) {
             'Authorization': `Bearer ${token}`,
         };
 
-        const url = replacePlaceholders(config.repourl, { group_id });
+        const url = replacePlaceholders(config.repourl, {}); // No replacement needed for base projects URL
 
         const data = {
             name: repo,
             visibility: vis,
+            namespace_id: group_id // Required to create repo inside the group
         };
 
         try {
@@ -128,6 +129,7 @@ console.log(res);</code></pre>
                     <ul>
                         <li>Reads API URL from a properties file.</li>
                         <li>Sets up request headers with an authentication token.</li>
+                        <li>Includes <code>namespace_id</code> in the payload to ensure the repository is created under the specified group.</li>
                         <li>Retries failed requests up to 3 times.</li>
                         <li>Creates repositories by calling the GitLab API.</li>
                     </ul>
