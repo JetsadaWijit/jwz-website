@@ -22,6 +22,7 @@ it.
 | `docs/gitlab/{operation}/index.html` | One page per GitLab operation. |
 | `docs/util/mail/outlook/send/index.html` | The Outlook mailer page. |
 | `.agents/` | Agent instructions. Not published. |
+| `INDEX.md` | The root router. Lists every index; carries no rules. Not published. |
 | `wiki/` | Documentation about this repository. Not published. |
 
 Everything under `docs/` is served publicly. Everything outside `docs/` is not.
@@ -33,7 +34,9 @@ nobody will look.
 Every fact on this site belongs to the `jwz` package. Function names, parameters,
 return values, and example code are copied from that repository's source, not
 written from memory or inferred from a page that already exists here. See
-[`../docs/content-standards.md`](../docs/content-standards.md).
+[`../docs/content-standards.md`](../docs/content-standards.md), and
+[`../knowledge/jwz-package-surface.md`](../knowledge/jwz-package-surface.md) for
+the checklist of what the package currently exports.
 
 If the source and a page disagree, the source is right and the page is a bug.
 

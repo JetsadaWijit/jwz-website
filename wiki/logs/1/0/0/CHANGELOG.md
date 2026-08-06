@@ -6,12 +6,22 @@ unchanged.
 
 ## Added
 
-* `AGENTS.md` rewritten as a routing overview with a reading order, a lazy loading
-  registry protocol, the separation of concerns rule, and the discovery protocol.
+* `AGENTS.md` rewritten as a routing overview with a reading order, the routing
+  protocol, the separation of concerns rule, and the discovery protocol.
+* Root `INDEX.md`, a router that lists every index in the repository and the
+  condition for loading each one, and never links to leaf content.
+* An index in every owned scope: `.agents/INDEX.md`, `wiki/INDEX.md`, and
+  `wiki/logs/INDEX.md`, each naming its parent.
+* `.agents/creators/index-creator.md`, owning the index template, the split
+  threshold, the maintenance rules, and the orphan audit.
+* `.agents/git/pull-request-template.md`, defining a human readable pull request
+  title, the body sections, and what must never appear in one.
+* `.agents/knowledge/jwz-package-surface.md`, the checklist of every published jwz
+  export and the drift check for pages that are missing or stale.
 * `.agents/` instruction tree with `INDEX.md` as its sole authority, covering
   directory architecture, versioning, repository rules, branching strategy, commit
   conventions, the standing branch and commit prompt, and the instruction,
-  information, and changelog creators.
+  information, changelog, and index creators.
 * `.agents/frontend/page-structure.md` defining the required HTML skeleton, the
   pinned Bootstrap CDN link, the shared footer, and the
   `docs/{area}/{function}/index.html` shape.

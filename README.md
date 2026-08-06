@@ -28,13 +28,17 @@ live website:
 
 ## Documentation
 
+Every documentation page is listed in [`wiki/INDEX.md`](wiki/INDEX.md). Start
+with these:
+
 | Page | What it covers |
 |---|---|
 | [`wiki/information/overview.md`](wiki/information/overview.md) | What this repository is and how it relates to the jwz package. |
 | [`wiki/information/architecture.md`](wiki/information/architecture.md) | How a page is put together: structure, navigation, styling, footer. |
 | [`wiki/environments/setup.md`](wiki/environments/setup.md) | Cloning, previewing locally, and publishing. |
-| [`wiki/INDEX.md`](wiki/INDEX.md) | Index of every documentation page. |
-| [`AGENTS.md`](AGENTS.md) | Entry point for agents working in this repository. |
+
+Agents start at [`AGENTS.md`](AGENTS.md) and route through
+[`INDEX.md`](INDEX.md).
 
 ## Member
 
