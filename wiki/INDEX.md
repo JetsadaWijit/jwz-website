@@ -1,33 +1,33 @@
+---
+name: wiki-index
+description: Index of documentation about the jwz-website repository itself. The published site lives under docs/ and is indexed nowhere here.
+---
+
 # Wiki Index
 
-Documentation about the `jwz-website` repository itself, for the people who
-maintain it. The published website lives under `docs/` and is a different thing
-entirely; see [`information/overview.md`](information/overview.md) for the
-distinction.
+**Scope:** `wiki/`
+**Parent:** [Root Index](../INDEX.md)
 
-Instructions for agents live in [`../.agents/INDEX.md`](../.agents/INDEX.md) and
-are not indexed here.
-
-Any page added to or removed from `wiki/` must be reflected in this file in the
-same commit.
+Documentation about this repository, for the people who maintain it. The
+published website lives under `docs/` and is a different thing entirely. Any page
+added to or removed from `wiki/` is reflected here in the same commit. This index
+never writes into `.agents/`.
 
 ## information/
 
-| Page | Purpose |
+| File | Purpose |
 |---|---|
-| [`information/overview.md`](information/overview.md) | What this repository is, what it publishes, and how it relates to the jwz package. |
-| [`information/architecture.md`](information/architecture.md) | How the site is put together: page shape, navigation, styling, and the footer. |
+| [`information/overview.md`](information/overview.md) | Learn what this repository is and how it relates to the jwz package. |
+| [`information/architecture.md`](information/architecture.md) | Understand how a page is put together and how the site is navigated. |
 
 ## environments/
 
-| Page | Purpose |
+| File | Purpose |
 |---|---|
-| [`environments/setup.md`](environments/setup.md) | Cloning the repository, previewing pages locally, and publishing. |
+| [`environments/setup.md`](environments/setup.md) | Clone, preview a page locally, and publish. |
 
-## logs/
+## Child Indexes
 
-Newest first.
-
-| Version | Log |
-|---|---|
-| 1.0.0 | [`logs/1/0/0/CHANGELOG.md`](logs/1/0/0/CHANGELOG.md) |
+| Index | Scope | Load when |
+|---|---|---|
+| [`logs/INDEX.md`](logs/INDEX.md) | Versioned change logs under `wiki/logs/` | You need release history or must record a change. |
