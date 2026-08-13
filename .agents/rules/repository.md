@@ -11,6 +11,14 @@ description: Rules specific to jwz-website: a hand written static site under doc
 a subject has its own instruction file, this file links to it instead of restating
 it.
 
+## Mode And Shared Set
+
+This repository is a **consumer** (Mode B). The conventions that are true across
+the organization — branching, commits, pull requests, task workflow, the creators,
+the directory architecture — are served by the `lxagents-agents-base` MCP connector
+and read over `agents://`. They are not stored here, and this file never restates
+them. Only what is specific to this site belongs below.
+
 ## Layout
 
 | Path | Holds |
@@ -21,8 +29,8 @@ it.
 | `docs/github/{operation}/index.html` | One page per GitHub operation. |
 | `docs/gitlab/{operation}/index.html` | One page per GitLab operation. |
 | `docs/util/mail/outlook/send/index.html` | The Outlook mailer page. |
-| `.agents/` | Agent instructions. Not published. |
-| `INDEX.md` | The root router. Lists every index; carries no rules. Not published. |
+| `.agents/` | This repository's instructions, indexes, agent knowledge, and memory. Not published. |
+| `.agents/index/root-index.md` | The router. Lists every index; carries no rules. Not published. |
 | `wiki/` | Documentation about this repository. Not published. |
 
 Everything under `docs/` is served publicly. Everything outside `docs/` is not.
@@ -48,6 +56,35 @@ browser. See [`../../wiki/environments/setup.md`](../../wiki/environments/setup.
 
 `.devcontainer/devcontainer.json` configures an editor only and installs nothing.
 The Live Server extension it recommends is the intended way to preview pages.
+
+## Version Carriers Here
+
+`{shared}/rules/versioning.md` gates every version change. This repository has **no
+package manifest**, so its version lives entirely in `wiki/logs/`. That makes the
+rule stricter here, not looser: creating a version directory is the only way a
+version is claimed, so creating one without approval invents a release. The carriers
+are:
+
+* a new `wiki/logs/{Major}/{Minor}/{Patch}/` directory;
+* git tags and GitHub release drafts on this repository;
+* any version string written into a published page under `docs/`;
+* any version carrier added later, for example a `package.json` or a `VERSION` file.
+
+It also covers the jwz package version quoted on the site. **This repository does not
+own that number.** It is set in the `jwz` repository, and the site may only report a
+version that has actually been released there.
+
+## Commit Scopes Here
+
+`{shared}/git/commit-conventions.md` defines the commit format. The scopes below are
+the real areas of this repository:
+
+* `site` — the published pages as a whole;
+* `github`, `gitlab`, `ai`, `mailer` — one documented area;
+* `agents`, `wiki`, `logs`, `readme` — the trees that are not published.
+
+A breaking change here means **a change to the URL of a published page**, because an
+existing link to it stops working. Mark it with `!` and a `BREAKING CHANGE:` footer.
 
 ## What Must Not Be Introduced
 

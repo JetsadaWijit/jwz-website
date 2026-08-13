@@ -28,7 +28,8 @@ live website:
 
 ## Documentation
 
-Every documentation page is listed in [`wiki/INDEX.md`](wiki/INDEX.md). Start
+Every documentation page is listed in
+[`.agents/index/project-wiki-index.md`](.agents/index/project-wiki-index.md). Start
 with these:
 
 | Page | What it covers |
@@ -37,8 +38,14 @@ with these:
 | [`wiki/information/architecture.md`](wiki/information/architecture.md) | How a page is put together: structure, navigation, styling, footer. |
 | [`wiki/environments/setup.md`](wiki/environments/setup.md) | Cloning, previewing locally, and publishing. |
 
+## Working With Agents
+
 Agents start at [`AGENTS.md`](AGENTS.md) and route through
-[`INDEX.md`](INDEX.md).
+[`.agents/index/root-index.md`](.agents/index/root-index.md).
+
+The conventions shared across the organization are not stored in this repository.
+They are served by the `lxagents-agents-base` MCP connector and resolved at read
+time; this repository carries only what is its own.
 
 ## Member
 

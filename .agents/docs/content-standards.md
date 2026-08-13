@@ -61,7 +61,7 @@ moment it is pushed.
 A page that disagrees with the source is a defect, not a style issue. Fix it with
 a `fix` commit, not a `docs` commit, when the published information was wrong
 rather than merely incomplete. See
-[`../git/commit-conventions.md`](../git/commit-conventions.md).
+`{shared}/git/commit-conventions.md`.
 
 ## When The Package Changes
 

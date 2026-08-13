@@ -75,7 +75,7 @@ git add docs/index.html
 git commit -m "docs(site): link the archiveRepos page from the landing page"
 ```
 
-See [`../git/commit-conventions.md`](../git/commit-conventions.md).
+See `{shared}/git/commit-conventions.md`.
 
 ## Verify Before Reporting Done
 
