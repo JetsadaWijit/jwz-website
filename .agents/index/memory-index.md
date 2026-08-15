@@ -26,4 +26,5 @@ commit.
 
 | File | Purpose |
 |---|---|
+| [`../memory/tasks/silver-glass-design-system.md`](../memory/tasks/silver-glass-design-system.md) | Adopting the Silver Glass design system: the task list, branches, pull requests, and what is still open. |
 | [`../memory/tasks/shared-set-adoption.md`](../memory/tasks/shared-set-adoption.md) | Record of adopting the shared instruction set and removing the duplicated copies. |

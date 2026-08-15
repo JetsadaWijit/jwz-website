@@ -35,6 +35,12 @@ selected.
 |---|---|
 | [`../frontend/page-structure.md`](../frontend/page-structure.md) | Build a page with the right skeleton, styles, and directory shape. |
 
+## design/
+
+| File | Purpose |
+|---|---|
+| [`../design/design-system.md`](../design/design-system.md) | Style anything on the site: the tokens, glass surfaces, components, and chrome every page wears. |
+
 ## knowledge/
 
 | File | Purpose |
