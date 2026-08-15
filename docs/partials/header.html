@@ -1,0 +1,70 @@
+<!-- Silver Glass shared header. Injected by js/site.js; {{ROOT}} is replaced
+     with the page's window.SITE_ROOT. Edit navigation here and nowhere else. -->
+<header class="site-header">
+    <nav class="nav container" aria-label="Primary">
+        <a class="nav__brand" href="{{ROOT}}index.html">
+            <span class="nav__brand-mark" aria-hidden="true">jwz</span>
+            <span class="nav__brand-text">Documentation</span>
+        </a>
+
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
+            <span class="nav__toggle-bar"></span>
+        </button>
+
+        <ul class="nav__links" id="nav-links">
+            <li>
+                <a class="nav__link" data-section="home" href="{{ROOT}}index.html">Home</a>
+            </li>
+
+            <li class="nav__dd">
+                <button class="nav__link nav__dd-btn" type="button" data-section="ai" aria-expanded="false">
+                    AI
+                    <svg class="nav__caret" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 5 7.5 9 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <ul class="nav__dd-menu">
+                    <li><a href="{{ROOT}}ai/deepseek/index.html">DeepSeek</a></li>
+                    <li><a href="{{ROOT}}ai/openai/index.html">OpenAI</a></li>
+                    <li><a href="{{ROOT}}ai/openrouter/index.html">OpenRouter</a></li>
+                </ul>
+            </li>
+
+            <li class="nav__dd">
+                <button class="nav__link nav__dd-btn" type="button" data-section="github" aria-expanded="false">
+                    GitHub
+                    <svg class="nav__caret" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 5 7.5 9 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <ul class="nav__dd-menu">
+                    <li><a href="{{ROOT}}github/build/index.html">Build</a></li>
+                    <li><a href="{{ROOT}}github/delete/index.html">Delete</a></li>
+                    <li><a href="{{ROOT}}github/invite/index.html">Invite</a></li>
+                    <li><a href="{{ROOT}}github/release/index.html">Release</a></li>
+                    <li><a href="{{ROOT}}github/remove/index.html">Remove</a></li>
+                </ul>
+            </li>
+
+            <li class="nav__dd">
+                <button class="nav__link nav__dd-btn" type="button" data-section="gitlab" aria-expanded="false">
+                    GitLab
+                    <svg class="nav__caret" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 5 7.5 9 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <ul class="nav__dd-menu">
+                    <li><a href="{{ROOT}}gitlab/build/index.html">Build</a></li>
+                    <li><a href="{{ROOT}}gitlab/delete/index.html">Delete</a></li>
+                    <li><a href="{{ROOT}}gitlab/invite/index.html">Invite</a></li>
+                    <li><a href="{{ROOT}}gitlab/release/index.html">Release</a></li>
+                    <li><a href="{{ROOT}}gitlab/remove/index.html">Remove</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="nav__link" data-section="mail" href="{{ROOT}}util/mail/outlook/send/index.html">Mail</a>
+            </li>
+
+            <li class="nav__spacer" aria-hidden="true"></li>
+
+            <li>
+                <a class="nav__link nav__link--cta" href="https://github.com/JetsadaWijit/jwz" target="_blank" rel="noopener noreferrer">Repository</a>
+            </li>
+        </ul>
+    </nav>
+</header>
