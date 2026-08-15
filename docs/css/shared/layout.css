@@ -1,0 +1,428 @@
+/* ==========================================================================
+   Silver Glass — shared/layout.css
+   Container, sticky glass header and nav, footer, breadcrumbs.
+   Authority: .agents/design/design-system.md (section 5).
+   ========================================================================== */
+
+/* --- Container ------------------------------------------------------------ */
+
+.container {
+    width: 100%;
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: clamp(1rem, .55rem + 1.9vw, 1.75rem);
+}
+
+.container.narrow {
+    max-width: 880px;
+}
+
+/* --- Page shell ----------------------------------------------------------- */
+
+.site-main {
+    display: block;
+    padding-block: clamp(1.75rem, 1.2rem + 2.2vw, 3rem) clamp(2.5rem, 2rem + 2.5vw, 4rem);
+}
+
+.site-main > * + * {
+    margin-top: clamp(1.25rem, 1rem + 1vw, 2rem);
+}
+
+/* --- Header --------------------------------------------------------------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--glass-strong);
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
+    border-bottom: 1px solid var(--hairline);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: var(--header-h);
+}
+
+/* --- Brand ---------------------------------------------------------------- */
+
+.nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    color: var(--ink-900);
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav__brand:hover {
+    color: var(--ink-900);
+}
+
+.nav__brand-mark {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(150deg, var(--accent), var(--accent-strong));
+    color: var(--white);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav__brand-text {
+    font-size: .98rem;
+    letter-spacing: -.01em;
+}
+
+/* --- Links ---------------------------------------------------------------- */
+
+.nav__links {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: .2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav__spacer {
+    flex: 1;
+}
+
+.nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    padding: .45rem .7rem;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: var(--ink-700);
+    font-family: inherit;
+    font-size: .92rem;
+    font-weight: 550;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease;
+}
+
+.nav__link:hover {
+    background: var(--accent-soft);
+    color: var(--ink-900);
+}
+
+.nav__link.is-active {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+}
+
+.nav__link--cta {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-sm);
+    color: var(--accent-strong);
+}
+
+.nav__link--cta:hover {
+    background: var(--white);
+    color: var(--ink-900);
+}
+
+.nav__caret {
+    width: 10px;
+    height: 10px;
+    flex: none;
+    transition: transform .15s ease;
+}
+
+/* --- Dropdown ------------------------------------------------------------- */
+
+.nav__dd {
+    position: relative;
+}
+
+.nav__dd-menu {
+    position: absolute;
+    top: calc(100% + .35rem);
+    left: 0;
+    z-index: 60;
+    min-width: 200px;
+    margin: 0;
+    padding: .35rem;
+    list-style: none;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-sm);
+    /* Content-covering overlay: opaque, never blurred. Design system section 3. */
+    background: var(--white);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity .15s ease, transform .15s ease, visibility .15s;
+}
+
+.nav__dd:hover .nav__dd-menu,
+.nav__dd:focus-within .nav__dd-menu,
+.nav__dd.is-open .nav__dd-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav__dd:hover .nav__caret,
+.nav__dd:focus-within .nav__caret,
+.nav__dd.is-open .nav__caret {
+    transform: rotate(180deg);
+}
+
+.nav__dd-menu a {
+    display: block;
+    padding: .45rem .6rem;
+    border-radius: 8px;
+    color: var(--ink-700);
+    font-size: .9rem;
+    text-decoration: none;
+}
+
+.nav__dd-menu a:hover,
+.nav__dd-menu a.is-active {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+}
+
+/* --- Mobile toggle -------------------------------------------------------- */
+
+.nav__toggle {
+    display: none;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    padding: 0;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-sm);
+    background: var(--glass);
+    cursor: pointer;
+}
+
+.nav__toggle-bar,
+.nav__toggle-bar::before,
+.nav__toggle-bar::after {
+    display: block;
+    width: 17px;
+    height: 2px;
+    margin-inline: auto;
+    border-radius: 2px;
+    background: var(--ink-700);
+    transition: transform .15s ease, opacity .15s ease;
+}
+
+.nav__toggle-bar::before,
+.nav__toggle-bar::after {
+    content: "";
+    position: relative;
+}
+
+.nav__toggle-bar::before {
+    top: -5px;
+}
+
+.nav__toggle-bar::after {
+    top: 3px;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar {
+    background: transparent;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar::before {
+    top: -1px;
+    transform: rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar::after {
+    top: -3px;
+    transform: rotate(-45deg);
+}
+
+/* --- Responsive nav ------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+    .nav {
+        flex-wrap: wrap;
+    }
+
+    .nav__toggle {
+        display: block;
+    }
+
+    .nav__links {
+        display: none;
+        flex: 1 0 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: .1rem;
+        margin: 0 calc(-1 * clamp(1rem, .55rem + 1.9vw, 1.75rem));
+        padding: .5rem clamp(1rem, .55rem + 1.9vw, 1.75rem) 1rem;
+        /* Content-covering overlay: opaque, never blurred. Design system section 3. */
+        background: var(--white);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        border-top: 1px solid var(--hairline);
+        box-shadow: var(--shadow-md);
+    }
+
+    .nav__links.is-open {
+        display: flex;
+    }
+
+    .nav__spacer {
+        display: none;
+    }
+
+    .nav__link {
+        justify-content: space-between;
+        border-radius: var(--radius-sm);
+        padding: .6rem .75rem;
+    }
+
+    .nav__link--cta {
+        margin-top: .4rem;
+        justify-content: center;
+    }
+
+    /* The dropdown flattens into an indented sublist — no overlay on mobile. */
+    .nav__dd-menu {
+        position: static;
+        min-width: 0;
+        margin: .1rem 0 .3rem .75rem;
+        padding: 0 0 0 .5rem;
+        border: 0;
+        border-left: 2px solid var(--hairline);
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .nav__caret {
+        display: none;
+    }
+}
+
+/* --- Breadcrumbs ---------------------------------------------------------- */
+
+.breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .4rem;
+    margin-bottom: 1.1rem;
+    font-size: .875rem;
+    color: var(--ink-400);
+}
+
+.breadcrumbs a {
+    color: var(--ink-500);
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    color: var(--accent-strong);
+    text-decoration: underline;
+}
+
+.breadcrumbs .sep {
+    color: var(--silver-400);
+}
+
+.breadcrumbs [aria-current="page"] {
+    color: var(--ink-700);
+    font-weight: 550;
+}
+
+/* --- Footer --------------------------------------------------------------- */
+
+.site-footer {
+    margin-top: auto;
+    background: var(--glass);
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
+    border-top: 1px solid var(--glass-border);
+}
+
+.site-footer__inner {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.4fr) repeat(auto-fit, minmax(150px, 1fr));
+    gap: clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
+    padding-block: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);
+}
+
+.site-footer__brand p {
+    margin: .5rem 0 0;
+    max-width: 34ch;
+    font-size: .9rem;
+    color: var(--ink-500);
+}
+
+.site-footer__col h3 {
+    margin: 0 0 .6rem;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--ink-400);
+}
+
+.site-footer__col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-footer__col li {
+    margin-bottom: .35rem;
+}
+
+.site-footer__col a {
+    color: var(--ink-700);
+    font-size: .9rem;
+    text-decoration: none;
+}
+
+.site-footer__col a:hover {
+    color: var(--accent-strong);
+    text-decoration: underline;
+}
+
+.site-footer__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--hairline);
+    font-size: .85rem;
+    color: var(--ink-400);
+}
+
+.site-footer__bar p {
+    margin: 0;
+}
