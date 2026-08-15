@@ -91,6 +91,7 @@ copy; the override table in
 | Need project facts, commands, or orientation | [`.agents/wiki/context/repository-map.md`](.agents/wiki/context/repository-map.md) |
 | Do anything at all in this project | [`.agents/rules/repository.md`](.agents/rules/repository.md) |
 | Write or change a published page under `docs/` | [`.agents/frontend/page-structure.md`](.agents/frontend/page-structure.md) |
+| Style a page, pick a color, or build any visual element of the site | [`.agents/design/design-system.md`](.agents/design/design-system.md) |
 | Decide what a page may claim about the jwz package | [`.agents/docs/content-standards.md`](.agents/docs/content-standards.md) |
 | Check which jwz functions exist or still need a page | [`.agents/knowledge/jwz-package-surface.md`](.agents/knowledge/jwz-package-surface.md) |
 | Publish, or write a link between pages of this site | [`.agents/deploy/github-pages.md`](.agents/deploy/github-pages.md) |
@@ -144,7 +145,12 @@ because continuity depends on it.
 * Memory goes to `.agents/memory/{type}/{file-name}.md`.
 * Indexes go to `.agents/index/{scope}-index.md`. No `INDEX.md`, anywhere, ever.
 * Published website pages go to `docs/`, in the shape defined by
-  [`.agents/frontend/page-structure.md`](.agents/frontend/page-structure.md).
+  [`.agents/frontend/page-structure.md`](.agents/frontend/page-structure.md), and
+  wearing the visual language defined by
+  [`.agents/design/design-system.md`](.agents/design/design-system.md).
+* The visual language — tokens, glass surfaces, components, chrome — goes to
+  `.agents/design/{file}.md`. It is never restated in a page, in `README.md`, or in
+  either wiki.
 * Anything universal goes to the shared set, never here.
 
 The placement authority is `{shared}/rules/directories.md`.
