@@ -3,95 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Navigation</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 600px;
-            text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .scrollable-block {
-            max-height: 150px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        .btn-group a {
-            margin: 5px;
-            font-size: 14px;
-            padding: 5px 10px;
-        }
-        footer {
-            margin-top: 20px;
-        }
-    </style>
+    <title>jwz Documentation</title>
+    <script>window.SITE_ROOT = ""; window.PAGE_SECTION = "home";</script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/shared/layout.css">
+    <link rel="stylesheet" href="css/shared/components.css">
+    <script src="js/site.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1 class="mb-3">Info</h1>
-        <p>Explanation of the system and its functionalities.</p>
+    <div id="site-header"></div>
 
-        <h2 class="mt-3">AI API</h2>
-        <div class="scrollable-block">
-            <div class="btn-group d-flex flex-wrap justify-content-center">
-                <a href="ai/deepseek/index.html" class="btn btn-primary btn-sm">DeepSeek</a>
-                <a href="ai/openai/index.html" class="btn btn-success btn-sm">OpenAI</a>
-                <a href="ai/openrouter/index.html" class="btn btn-info btn-sm">OpenRouter</a>
+    <main class="site-main">
+        <div class="container">
+            <div class="hero">
+                <span class="eyebrow">Documentation</span>
+                <h1>jwz</h1>
+                <p class="lead">Reference pages for the jwz npm package: one page per
+                    documented function, each with its source, a usage example, and an
+                    explanation.</p>
+                <div class="btn-row">
+                    <a class="btn btn--primary" href="github/build/index.html">Start with GitHub</a>
+                    <a class="btn" href="https://github.com/JetsadaWijit/jwz" target="_blank" rel="noopener noreferrer">Repository</a>
+                </div>
             </div>
+
+            <section class="section">
+                <span class="eyebrow">jwz/deepseek &middot; jwz/openai &middot; jwz/openrouter</span>
+                <h2>AI providers</h2>
+                <div class="card-grid">
+                    <a class="card" href="ai/deepseek/index.html">
+                        <h3 class="card__title">DeepSeek</h3>
+                        <p class="card__desc"><code>deepseek.js</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="ai/openai/index.html">
+                        <h3 class="card__title">OpenAI</h3>
+                        <p class="card__desc"><code>openai.js</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="ai/openrouter/index.html">
+                        <h3 class="card__title">OpenRouter</h3>
+                        <p class="card__desc"><code>openrouter.js</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <span class="eyebrow">jwz/github</span>
+                <h2>GitHub</h2>
+                <div class="card-grid">
+                    <a class="card" href="github/build/index.html">
+                        <h3 class="card__title">Build</h3>
+                        <p class="card__desc"><code>buildRepos</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="github/delete/index.html">
+                        <h3 class="card__title">Delete</h3>
+                        <p class="card__desc"><code>deleteRepos</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="github/invite/index.html">
+                        <h3 class="card__title">Invite</h3>
+                        <p class="card__desc"><code>inviteCollaboratorsToRepos</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="github/release/index.html">
+                        <h3 class="card__title">Release</h3>
+                        <p class="card__desc"><code>getReleaseVersion</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="github/remove/index.html">
+                        <h3 class="card__title">Remove</h3>
+                        <p class="card__desc"><code>removeCollaboratorsFromRepos</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <span class="eyebrow">jwz/gitlab</span>
+                <h2>GitLab</h2>
+                <div class="card-grid">
+                    <a class="card" href="gitlab/build/index.html">
+                        <h3 class="card__title">Build</h3>
+                        <p class="card__desc"><code>buildRepos</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="gitlab/delete/index.html">
+                        <h3 class="card__title">Delete</h3>
+                        <p class="card__desc"><code>deleteRepos</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="gitlab/invite/index.html">
+                        <h3 class="card__title">Invite</h3>
+                        <p class="card__desc">Invite collaborators</p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="gitlab/release/index.html">
+                        <h3 class="card__title">Release</h3>
+                        <p class="card__desc"><code>getReleaseVersion</code></p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                    <a class="card" href="gitlab/remove/index.html">
+                        <h3 class="card__title">Remove</h3>
+                        <p class="card__desc">Remove collaborators</p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <span class="eyebrow">jwz/mailer/outlook/send</span>
+                <h2>Outlook</h2>
+                <div class="card-grid">
+                    <a class="card" href="util/mail/outlook/send/index.html">
+                        <h3 class="card__title">Send Mail</h3>
+                        <p class="card__desc">Mailer Outlook Send</p>
+                        <span class="card__more">Read &rarr;</span>
+                    </a>
+                </div>
+            </section>
         </div>
+    </main>
 
-        <h2 class="mt-3">GitHub</h2>
-        <div class="scrollable-block">
-            <div class="btn-group d-flex flex-wrap justify-content-center">
-                <a href="github/build/index.html" class="btn btn-primary btn-sm">Build</a>
-                <a href="github/delete/index.html" class="btn btn-danger btn-sm">Delete</a>
-                <a href="github/invite/index.html" class="btn btn-success btn-sm">Invite</a>
-                <a href="github/release/index.html" class="btn btn-warning btn-sm">Release</a>
-                <a href="github/remove/index.html" class="btn btn-secondary btn-sm">Remove</a>
-            </div>
-        </div>
-
-        <h2 class="mt-3">GitLab</h2>
-        <div class="scrollable-block">
-            <div class="btn-group d-flex flex-wrap justify-content-center">
-                <a href="gitlab/build/index.html" class="btn btn-primary btn-sm">Build</a>
-                <a href="gitlab/delete/index.html" class="btn btn-danger btn-sm">Delete</a>
-                <a href="gitlab/invite/index.html" class="btn btn-success btn-sm">Invite</a>
-                <a href="gitlab/release/index.html" class="btn btn-warning btn-sm">Release</a>
-                <a href="gitlab/remove/index.html" class="btn btn-secondary btn-sm">Remove</a>
-            </div>
-        </div>
-
-        <h2 class="mt-3">Outlook</h2>
-        <div class="scrollable-block">
-            <div class="btn-group d-flex flex-wrap justify-content-center">
-                <a href="util/mail/outlook/send/index.html" class="btn btn-info btn-sm">Send Mail</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer will be loaded dynamically -->
-    <div id="footer"></div>
-
-    <script>
-        // Load footer dynamically
-        fetch("footer.html")
-            .then(response => response.text())
-            .then(data => document.getElementById("footer").innerHTML = data);
-    </script>
+    <div id="site-footer"></div>
 </body>
 </html>

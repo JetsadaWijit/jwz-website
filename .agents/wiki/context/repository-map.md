@@ -14,15 +14,18 @@ this page does not restate it.
 
 The documentation website for the [jwz](https://github.com/JetsadaWijit/jwz) npm
 package, published by GitHub Pages from `docs/`. Hand-written HTML, styled with the
-Bootstrap CDN. There is no generator, no framework, no build step, no dependency to
-install, and no test runner. Currently at version `1.0.0`, MIT licensed.
+in-repository Silver Glass design system. There is no generator, no framework, no
+build step, no dependency to install, and no test runner. Currently at version
+`1.0.0`, MIT licensed.
 
 ## Where things live
 
 | Path | Holds | Published? |
 |---|---|---|
 | `docs/index.html` | The landing page and navigation hub linking every documented function. | Yes |
-| `docs/footer.html` | The shared footer fragment, fetched at runtime by each page. | Yes |
+| `docs/partials/header.html`, `docs/partials/footer.html` | The shared chrome, fetched at runtime by every page. Navigation is edited here and nowhere else. | Yes |
+| `docs/css/main.css`, `docs/css/shared/` | The Silver Glass tokens, layout, and components. No page carries its own styles. | Yes |
+| `docs/js/site.js` | The only JavaScript: injects the partials, marks the active nav entry, wires the mobile menu. | Yes |
 | `docs/ai/{provider}/index.html` | One page per AI provider: `deepseek`, `openai`, `openrouter`. | Yes |
 | `docs/github/{operation}/index.html` | One page per GitHub operation: `build`, `delete`, `invite`, `release`, `remove`. | Yes |
 | `docs/gitlab/{operation}/index.html` | One page per GitLab operation, the same five. | Yes |
@@ -49,10 +52,14 @@ intended alternative.
 
 ## Known gotchas
 
-* **The footer is fetched, not inlined.** Each page runs
-  `fetch("footer.html")` and injects the result. Opening a page over `file://`
-  leaves the footer blank, and a page at a different directory depth needs a
-  relative path that actually reaches `docs/footer.html`. Always preview over HTTP.
+* **The header and footer are fetched, not inlined.** `js/site.js` runs
+  `fetch()` against `partials/`, so a page opened over `file://` falls back to a
+  bare brand header with no navigation. Always preview over HTTP.
+* **Every page must set `window.SITE_ROOT` and `window.PAGE_SECTION` in `<head>`.**
+  `SITE_ROOT` is the relative path back to `docs/` — `""` for the landing page,
+  `"../../"` two levels down, `"../../../../"` for the mailer page — and it is what
+  the `{{ROOT}}` token in each partial is replaced with. Get it wrong and the nav
+  links point nowhere. Recount the `../` segments when adding a page at a new depth.
 * **The site is served from a project subpath**, `/jwz-website/`, not from a domain
   root. Absolute links beginning with `/` break in production while appearing to
   work locally — see [`../../deploy/github-pages.md`](../../deploy/github-pages.md).
@@ -62,8 +69,11 @@ intended alternative.
   source disagree, the page is the bug. See
   [`../../docs/content-standards.md`](../../docs/content-standards.md) and
   [`../../knowledge/jwz-package-surface.md`](../../knowledge/jwz-package-surface.md).
-* **Bootstrap is loaded from a pinned CDN link** for styling only. There is no
-  JavaScript framework, and adding one is prohibited.
+* **Nothing is loaded from a CDN.** The site makes no external network request at
+  runtime — no framework, no font, no icon set, not even the favicon. Style comes
+  from the Silver Glass layers in `docs/css/`, defined by
+  [`../../design/design-system.md`](../../design/design-system.md); compose its
+  components before writing new CSS.
 * **Changing a published page's URL is a breaking change**, because an existing link
   to it stops working.
 * Examples use obvious placeholders such as `"YOUR_TOKEN"`. No real credential or
