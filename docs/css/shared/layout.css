@@ -24,7 +24,9 @@
     padding-block: clamp(1.75rem, 1.2rem + 2.2vw, 3rem) clamp(2.5rem, 2rem + 2.5vw, 4rem);
 }
 
-.site-main > * + * {
+/* Vertical rhythm between the blocks of a page, at either nesting level. */
+.site-main > * + *,
+.site-main .container > * + * {
     margin-top: clamp(1.25rem, 1rem + 1vw, 2rem);
 }
 
