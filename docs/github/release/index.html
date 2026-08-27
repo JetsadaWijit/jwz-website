@@ -34,7 +34,7 @@
             <h2>Code</h2>
             <pre><code>const axios = require('axios');
 const path = require('path');
-const { readPropertiesFile, replacePlaceholders } = require('../essential');
+const { readPropertiesFile, requireHttpsUrl, resolveSecureUrl } = require('../essential');
 
 /**
  * Fetches a specific release version from a repository.
@@ -55,10 +55,12 @@ async function getReleaseVersion(org, repo, version, token) {
         throw new Error("Release URL is missing in the configuration.");
     }
 
+    requireHttpsUrl(config.reporeleaseurl, 'reporeleaseurl');
+
     const replacements = { organization: org, repository: repo };
 
     try {
-        const response = await axios.get(replacePlaceholders(config.reporeleaseurl, replacements), {
+        const response = await axios.get(resolveSecureUrl(config.reporeleaseurl, replacements, 'reporeleaseurl'), {
             headers: {
                 Authorization: `Bearer ${token}`,
                 Accept: 'application/vnd.github.v3+json'
@@ -127,6 +129,7 @@ console.log(res);</code></pre>
                 <li><strong>Logic:</strong>
                     <ul>
                         <li>Reads the API endpoint URL from a properties file.</li>
+                        <li>Checks the endpoint uses https, and throws before the token is sent if it does not.</li>
                         <li>Replaces placeholders in the URL with the organization and repository names.</li>
                         <li>Sets the <code>Authorization</code> header with the provided token.</li>
                         <li>Fetches the list of releases from the GitHub API.</li>

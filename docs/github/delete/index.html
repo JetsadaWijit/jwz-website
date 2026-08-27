@@ -34,7 +34,7 @@
             <h2>Code</h2>
             <pre><code>const axios = require('axios');
 const path = require('path');
-const { readPropertiesFile, replacePlaceholders } = require('../essential');
+const { readPropertiesFile, requireHttpsUrl, resolveSecureUrl } = require('../essential');
 
 async function deleteRepos(org, repos, token) {
     const filePath = path.join(__dirname, 'properties', 'api.properties');
@@ -44,10 +44,12 @@ async function deleteRepos(org, repos, token) {
         throw new Error("Repository-specific URL is missing in the configuration.");
     }
 
+    requireHttpsUrl(config.repospecificurl, 'repospecificurl');
+
     try {
         const deleteRequests = repos.map(async repo => {
             const replacements = { organization: org, repository: repo };
-            return await axios.delete(replacePlaceholders(config.repospecificurl, replacements), {
+            return await axios.delete(resolveSecureUrl(config.repospecificurl, replacements, 'repospecificurl'), {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -98,6 +100,7 @@ console.log(res);</code></pre>
                 <li><strong>Logic:</strong>
                     <ul>
                         <li>Reads the repository-specific URL from a properties file.</li>
+                        <li>Checks the endpoint uses https, and throws before the token is sent if it does not.</li>
                         <li>Constructs a delete request for each repository using the GitHub API.</li>
                         <li>Executes all delete requests concurrently using <code>Promise.all</code>.</li>
                         <li>Handles and logs any errors encountered during the process.</li>

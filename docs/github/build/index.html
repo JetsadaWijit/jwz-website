@@ -34,7 +34,7 @@
             <h2>Code</h2>
             <pre><code>const axios = require('axios');
 const path = require('path');
-const { readPropertiesFile, replacePlaceholders } = require('../essential');
+const { readPropertiesFile, requireHttpsUrl, resolveSecureUrl } = require('../essential');
 
 /*
     @param org = String
@@ -50,6 +50,8 @@ async function buildRepos(org, repos, vis, token) {
         throw new Error("Repository URL is missing in the configuration.");
     }
 
+    requireHttpsUrl(config.repourl, 'repourl');
+
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
@@ -61,7 +63,7 @@ async function buildRepos(org, repos, vis, token) {
         const data = { name: repo, visibility: vis };
 
         try {
-            const createResponse = await axios.post(replacePlaceholders(config.repourl, replacements), data, { headers });
+            const createResponse = await axios.post(resolveSecureUrl(config.repourl, replacements, 'repourl'), data, { headers });
 
             if (createResponse.status === 201) {
                 return { success: true, message: 'GitHub repository created successfully', repositoryName: repo, organizationName: org };
@@ -121,6 +123,7 @@ console.log(res);</code></pre>
                 <li><strong>Logic:</strong>
                     <ul>
                         <li>Reads the API endpoint URL from a properties file.</li>
+                        <li>Checks the endpoint uses https, and throws before the token is sent if it does not.</li>
                         <li>Constructs headers with the authentication token.</li>
                         <li>Retries up to 3 times for failed requests.</li>
                         <li>Creates repositories by calling the GitHub API.</li>
