@@ -51,3 +51,22 @@ Left stale on purpose, pending the user's selection: `.agents/knowledge/jwz-pack
 says the platform operations "resolve rather than throw", which does not account for
 the configuration-time throws. That file is an instruction and it states outright
 that correcting it is a discovery finding, so it was reported rather than edited.
+
+### Task 6 — docs/https-guard-instructions
+
+What landed: the one approved finding for this repository.
+`.agents/knowledge/jwz-package-surface.md` claimed the Git platform operations
+"resolve rather than throw" without qualification. The `jwz` package now throws at
+configuration time when an endpoint key is missing or the endpoint is not `https://`,
+so the claim was scoping a runtime contract over a startup one.
+
+The "Shapes To Get Right" bullet now scopes the resolve-rather-than-throw contract to
+what happens during the call, and a second bullet names the configuration throws as
+the deliberate exception, with the instruction that a function page documents both.
+
+That file is the checklist this site writes pages against, so leaving it as it was
+would have taught the next page-writer to omit the throw from every platform page.
+
+No file was added, moved or removed, so no index row changed. This repository's
+version is untouched; whether the published-page changes warrant `wiki/logs/1/0/1/`
+is still an open decision for the user.

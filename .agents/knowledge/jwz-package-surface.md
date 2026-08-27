@@ -34,10 +34,16 @@ Nothing outside this table is public, and nothing outside it may be documented.
   the collaborator and delete operations into group and personal variants, so
   eight exports against GitHub's five. Never copy a GitHub page into a GitLab page
   without reading the GitLab source.
-* The Git platform operations resolve rather than throw. Success is
-  `{ success: true, message, ...context }` and failure is
-  `{ success: false, message, status }`. An operation that takes an array of
+* The Git platform operations resolve rather than throw **for anything that happens
+  during the call**. Success is `{ success: true, message, ...context }` and failure
+  is `{ success: false, message, status }`. An operation that takes an array of
   entities resolves with an array of those objects, one per entity.
+* **Configuration errors are the exception, and they throw.** Before issuing a
+  request, each platform operation checks that the endpoint key exists and that the
+  endpoint is `https://`, and throws a plain `Error` if either fails. That is a
+  broken installation rather than a failed operation, which is why it is not folded
+  into the result object. A page for one of these functions documents both: the
+  result shape for the call, and the throw for a misconfigured package.
 * The three AI clients are identical in shape: `askAi` resolves with the raw
   provider response, `getCompletion` extracts the answer text and returns an empty
   string when the field is missing, `getTokenUsage` returns the token count or
