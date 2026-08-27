@@ -34,7 +34,7 @@
             <h2>Code</h2>
             <pre><code>const axios = require('axios');
 const path = require('path');
-const { readPropertiesFile, replacePlaceholders } = require('../essential');
+const { readPropertiesFile, requireHttpsUrl, resolveSecureUrl } = require('../essential');
 
 async function inviteCollaboratorsToRepos(org, repos, collaborators, token) {
     const filePath = path.join(__dirname, 'properties', 'api.properties');
@@ -44,14 +44,16 @@ async function inviteCollaboratorsToRepos(org, repos, collaborators, token) {
         throw new Error("Collaborator URL is missing in the configuration.");
     }
 
+    requireHttpsUrl(config.repocollaboratorurl, 'repocollaboratorurl');
+
     const results = await Promise.all(repos.map(async (repo, i) => {
         const repoResults = [];
         for (let j = 0; j < collaborators[i].length; j++) {
             const replacements = { organization: org, repository: repo, collaborator: collaborators[i][j] };
             try {
-                await axios.put(replacePlaceholders(config.repocollaboratorurl, replacements), {}, {
+                await axios.put(resolveSecureUrl(config.repocollaboratorurl, replacements, 'repocollaboratorurl'), {}, {
                     headers: {
-                        Authorization: \`Bearer ${token}\`,
+                        Authorization: `Bearer ${token}`,
                         Accept: 'application/vnd.github.v3+json',
                     },
                 });
@@ -105,6 +107,7 @@ console.log(res);</code></pre>
                 <li><strong>Logic:</strong>
                     <ul>
                         <li>Reads the collaborator API URL from a properties file.</li>
+                        <li>Checks the endpoint uses https, and throws before the token is sent if it does not.</li>
                         <li>Iterates over repositories and their respective collaborators.</li>
                         <li>Uses the GitHub API to send invitations to collaborators.</li>
                         <li>Handles errors and retries for each collaborator.</li>

@@ -19,6 +19,10 @@ description: Current known state of jwz-website — what is published, what is n
   `docs/footer.html` are gone, and the site now makes no external network request.
 * A human wiki under `wiki/` with overview, architecture, setup, and one version log
   directory at `wiki/logs/1/0/0/`.
+* The ten platform pages quote `jwz` source that carries its https guard
+  (`requireHttpsUrl`, `resolveSecureUrl`). Two `http://` strings remain on purpose:
+  the SVG namespace in `docs/js/site.js` and the loopback dev server in
+  `wiki/environments/setup.md`. Neither is a transport.
 * A local instruction set under `.agents/` covering only what is specific to this
   site: repository rules, page structure, content standards, the jwz package surface
   checklist, GitHub Pages deployment, and the add-a-page skill.
