@@ -91,7 +91,22 @@ sendEmail(sender, password, receiver, subject, text);
         <section class="section">
             <h2>Security Note</h2>
             <p>
-                Storing passwords in plain text is not secure. It is recommended to use environment variables to store credentials securely.
+                <strong>Storing</strong> passwords in plain text is not secure. It is recommended to use
+                environment variables to store credentials securely. The example above hard codes one only
+                to keep it readable.
+            </p>
+            <p>
+                <strong>Sending</strong> them is handled for you. The transport sets
+                <code>requireTLS: true</code>, so the connection to Outlook must be upgraded to TLS by
+                STARTTLS before any credential is transmitted. This matters because the
+                <code>Outlook365</code> preset connects on port 587 with <code>secure: false</code>, which
+                opens in cleartext; without that setting the upgrade is attempted only when the server
+                offers it, and a server that does not would receive the password unencrypted.
+            </p>
+            <p>
+                A consequence worth knowing: if the connection cannot be secured, <code>sendEmail</code>
+                rejects rather than sending anything. A failure to upgrade is reported, never silently
+                downgraded.
             </p>
         </section>
         </div>
