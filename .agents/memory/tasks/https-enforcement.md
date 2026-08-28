@@ -70,3 +70,35 @@ would have taught the next page-writer to omit the throw from every platform pag
 No file was added, moved or removed, so no index row changed. This repository's
 version is untouched; whether the published-page changes warrant `wiki/logs/1/0/1/`
 is still an open decision for the user.
+
+## Follow-up: the collaborator duplication refactor
+
+Separate work, recorded here only because it touches the same two pages. The plan
+lives in the `jwz` repository at
+`.agents/memory/tasks/github-collaborator-duplication.md`.
+
+### Task 3 — fix/github-collaborators
+
+What landed: `docs/github/invite/index.html` and `docs/github/remove/index.html`.
+`jwz` moved the shared collaborator machinery into `src/github/collaborators.js`, so
+each page's `Code` section now shows two blocks: the operation itself, which is a
+wrapper supplying one HTTP verb, and the helper it delegates to, with a line of prose
+between them naming the sibling operation and saying the helper is internal and not
+importable on its own.
+
+Verified: both blocks on both pages extracted, HTML unescaped, comment stripped and
+compared line by line against `invite.js`, `remove.js` and `collaborators.js` in the
+`jwz` working tree. Four of four match.
+
+Fixed in passing: the invite page's `Logic` list claimed the operation "handles errors
+and retries for each collaborator". It never retried — `build.js` is the only GitHub
+module with a retry loop — so the page promised a resilience the code does not have.
+It predates this task and sat in a page already being corrected for accuracy, so it
+was fixed here rather than left. It now says the failure is recorded against its
+collaborator and the rest continue, which is what the code does.
+
+Noted, not changed: these pages store `<` unescaped inside `<pre><code>`, while
+`.agents/skills/add-documentation-page.md` says to HTML escape everything inside
+`<code>`. It renders correctly because every occurrence is followed by a space, and it
+is true of every page on the site, so correcting it is its own task rather than a
+detail of this one.

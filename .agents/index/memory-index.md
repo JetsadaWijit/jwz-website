@@ -29,4 +29,4 @@ commit.
 | [`../memory/tasks/silver-glass-design-system.md`](../memory/tasks/silver-glass-design-system.md) | Adopting the Silver Glass design system: the task list, branches, pull requests, and what is still open. |
 | [`../memory/tasks/shared-set-adoption.md`](../memory/tasks/shared-set-adoption.md) | Record of adopting the shared instruction set and removing the duplicated copies. |
 | [`../memory/tasks/shared-set-sync.md`](../memory/tasks/shared-set-sync.md) | Record of syncing the entry point with shared set 0.10.0 — audit rerun, trigger row deleted, mandatory files made always-on. |
-| [`../memory/tasks/https-enforcement.md`](../memory/tasks/https-enforcement.md) | Re-syncing the ten platform pages with the guarded jwz source, and the two http strings deliberately left alone. |
+| [`../memory/tasks/https-enforcement.md`](../memory/tasks/https-enforcement.md) | Re-syncing the ten platform pages with the guarded jwz source, the two http strings deliberately left alone, and the later collaborator refactor that reshaped two of those pages. |
