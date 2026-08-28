@@ -102,3 +102,25 @@ Noted, not changed: these pages store `<` unescaped inside `<pre><code>`, while
 `<code>`. It renders correctly because every occurrence is followed by a space, and it
 is true of every page on the site, so correcting it is its own task rather than a
 detail of this one.
+
+## Follow-up: the mailer STARTTLS fix
+
+Separate work, recorded here only because it touches this site. The plan lives in the
+`jwz` repository at `.agents/memory/tasks/mailer-tls.md`.
+
+### Task 4 — fix/mailer-tls
+
+What landed: the Security Note on `docs/util/mail/outlook/send/index.html`.
+
+It previously covered only **storing** the password, and said nothing about sending
+it, which was the more immediate exposure: the `Outlook365` preset connects in
+cleartext on port 587 and, before the fix in `jwz`, upgraded to TLS only when the
+server offered to. The note now separates the two concerns, explains what
+`requireTLS: true` guarantees, and states the consequence a caller can observe, that
+`sendEmail` rejects rather than sending anything when the connection cannot be
+secured.
+
+The page's `Code` section needed nothing: unlike the platform pages, it shows usage
+rather than module source, so the change in `jwz` did not make it stale.
+
+Tag balance was verified across every page under `docs/` afterwards.
